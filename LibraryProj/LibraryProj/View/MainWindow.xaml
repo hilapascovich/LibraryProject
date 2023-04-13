@@ -1,0 +1,69 @@
+﻿<Window x:Class="LibraryProj.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LibraryProj"
+        mc:Ignorable="d"
+        Title="Hila's library" Height="414" Width="589" WindowStartupLocation="CenterScreen"
+        >
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="0.8*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Label Content="Welcome to Hila's library"
+               Style="{StaticResource MainLabel}"/>
+        <StackPanel Orientation="Horizontal"
+                    Grid.Row="1"
+                    HorizontalAlignment="Right"
+                    Margin="0 0 5 0">
+            <Button Content="+New book"
+                    Style="{StaticResource addAndDeleteButtons}"
+                    Command="{Binding _addNewBookClicked}"/>
+            <Canvas Width="15"/>
+            <Button  Style="{StaticResource addAndDeleteButtons}"
+                     Content="Delete"
+                     Command="{Binding _deleteBookClicked}" CommandParameter="{Binding ElementName=booksDataGrid}"/>
+            <Canvas Width="15"/>
+            <Button  Style="{StaticResource addAndDeleteButtons}"
+                     Content="Save"
+                     Command="{Binding _saveList}"/>
+        </StackPanel>
+
+        <DataGrid x:Name="booksDataGrid" Grid.Row="2" Margin="0 10"
+                  ItemsSource="{Binding booksListGridData}"
+                  CanUserAddRows="False"
+                  IsReadOnly="True"
+                  HorizontalAlignment="Stretch"
+                  BorderThickness="0"
+                  HorizontalGridLinesBrush="#FFDCDADA"
+                  AlternatingRowBackground="#FFD7ECFF"
+                  Background="White"
+                  SelectionMode="Extended"
+                  SelectedItem="{Binding deleteSelectedItem}"
+                  Foreground="#FF3A90D9"
+                  AutoGenerateColumns="False"
+                  >
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Title"
+                                    Binding="{Binding title}" Width="*"/>
+                <DataGridTextColumn Header="ISBN"
+                                    Binding="{Binding isbn}" Width="*"/>
+                <DataGridTextColumn Header="Publication date"
+                                    Binding="{Binding publishedDate}" Width="*"/>
+                <DataGridTextColumn Header="Author"
+                                    Binding="{Binding authors}" Width="*"/>
+                <DataGridTextColumn Header="Genre"
+                                    Binding="{Binding categories}" Width="*"/>
+
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Button Style="{StaticResource addAndDeleteButtons}" Grid.Row="3" Content="Share" Command="{Binding _shareClicked}" HorizontalAlignment="Left" Margin="2 0 0 0"/>
+    </Grid>
+</Window>
